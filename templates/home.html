@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<title>Symulator Diagnostyki</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body {
+    background-color: #f0f2f5;
+  }
+  .container-custom {
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 30px;
+  }
+  .form-container, .reference-container {
+    margin-bottom: 30px;
+  }
+  h2, h3 {
+    text-align: center;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+  }
+  th {
+    background-color: #f8f9fa;
+  }
+  @media (min-width: 768px) {
+    .flex-columns {
+      display: flex;
+      gap: 20px;
+    }
+    .form-container, .reference-container {
+      flex: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container-custom">
+  <h2 class="mb-4">🩺 Symulator Ryzyka Choroby</h2>
+
+  <div class="flex-columns">
+    <!-- Formularz -->
+    <div class="form-container">
+      <form action="/predict" method="POST">
+        <div class="mb-3">
+          <label for="age" class="form-label">Wiek</label>
+          <input type="number" name="age" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="sex" class="form-label">Płeć (0 - kobieta, 1 - mężczyzna)</label>
+          <input type="number" name="sex" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="chol" class="form-label">Cholesterol</label>
+          <input type="number" name="chol" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="trestbps" class="form-label">Ciśnienie krwi</label>
+          <input type="number" name="trestbps" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="fbs" class="form-label">Poziom cukru (0 - nie, 1 - tak)</label>
+          <input type="number" name="fbs" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="thalach" class="form-label">Thalach</label>
+          <input type="number" name="thalach" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="cp" class="form-label">CP</label>
+          <input type="number" name="cp" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="restecg" class="form-label">Restecg</label>
+          <input type="number" name="restecg" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="exang" class="form-label">Exang</label>
+          <input type="number" name="exang" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="oldpeak" class="form-label">Oldpeak</label>
+          <input type="number" name="oldpeak" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="slope" class="form-label">Slope</label>
+          <input type="number" name="slope" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="ca" class="form-label">ca</label>
+          <input type="number" name="ca" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="condition" class="form-label">Condition (0 / 1)</label>
+          <input type="number" name="condition" class="form-control" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">🔍 Sprawdź ryzyko</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Ściąga -->
+    <div class="reference-container">
+      <h3>Feature Reference (EN / PL)</h3>
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>Values (EN)</th>
+          <th>Feature (PL)</th>
+          <th>Values (PL)</th>
+        </tr>
+        <tr>
+          <td>Age</td>
+          <td>Integer (years)</td>
+          <td>Wiek</td>
+          <td>Liczba całkowita (lata)</td>
+        </tr>
+        <tr>
+          <td>Sex</td>
+          <td>0=female, 1=male</td>
+          <td>Płeć</td>
+          <td>0=kobieta, 1=mężczyzna</td>
+        </tr>
+        <tr>
+          <td>Cholesterol</td>
+          <td>mg/dl</td>
+          <td>Cholesterol</td>
+          <td>mg/dl</td>
+        </tr>
+        <tr>
+          <td>Blood Pressure</td>
+          <td>mm Hg (resting)</td>
+          <td>Ciśnienie krwi</td>
+          <td>mm Hg (w spoczynku)</td>
+        </tr>
+        <tr>
+          <td>Fasting Blood Sugar</td>
+          <td>0=no, 1=yes</td>
+          <td>Poziom cukru</td>
+          <td>0=nie, 1=tak( powyzej 120mg/dl)</td>
+        </tr>
+        <tr>
+          <td>Thalach</td>
+          <td>Max heart rate</td>
+          <td>Thalach</td>
+          <td>Maksymalne tętno</td>
+        </tr>
+        <tr>
+          <td>Chest Pain Type (CP)</td>
+          <td>0=typical, 1=atypical, 2=non-anginal, 3=asymptomatic</td>
+          <td>Typ bólu (CP)</td>
+          <td>0=typowy, 1=atypowy, 2=nie-dławicowy, 3=bez bólu</td>
+        </tr>
+        <tr>
+          <td>Restecg</td>
+          <td>0=normal, 1=ST-T abnormality, 2=LVH</td>
+          <td>Restecg</td>
+          <td>0=normalny, 1=nieprawidłowości ST-T, 2=przerost LK</td>
+        </tr>
+        <tr>
+          <td>Exang</td>
+          <td>0=no, 1=yes</td>
+          <td>Exang</td>
+          <td>0=nie, 1=tak</td>
+        </tr>
+        <tr>
+          <td>Oldpeak</td>
+          <td>ST depression (float)</td>
+          <td>Oldpeak</td>
+          <td>Depresja ST (zmiennoprzecinkowa)</td>
+        </tr>
+        <tr>
+          <td>Slope</td>
+          <td>0=upsloping, 1=flat, 2=downsloping</td>
+          <td>Slope</td>
+          <td>0=wznoszące, 1=płaskie, 2=opadające</td>
+        </tr>
+        <tr>
+          <td>ca</td>
+          <td>0-3 (number of major vessels)</td>
+          <td>ca</td>
+          <td>0-3 (liczba głównych naczyń)</td>
+        </tr>
+        <tr>
+          <td>thal</td>
+          <td>1=normal, 2=fixed defect, 3=reversible defect</td>
+          <td>thal</td>
+          <td>1=normalny, 2=stały defekt, 3=odwracalny defekt</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
